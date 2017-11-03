@@ -11,10 +11,11 @@ Simple Circuit Breaker using Hystrix
                                :request-volume-threshold 20
                                :error-threshold-percentage 50}))
 
-(when (attempt-execution? cb)
-   (if (do-something)
-     (cb/success! cb)
-     (cb/failure! cb)))
+(if (attempt-execution? cb)
+  (if (do-something)
+    (cb/success! cb)
+    (cb/failure! cb))
+  (println "error"))
 ```
 
 
